@@ -1,14 +1,17 @@
+from numpy._typing import NDArray
 import pandas as pd
 import numpy as np
 from numpy import ndarray
-from typing import Union, Any, Callable, Tuple
+from typing import Optional, Union, Any, Callable, Tuple
 
 from statsmodels.tsa.stattools import adfuller
 from stochastic.processes.continuous import GeometricBrownianMotion
 
+Series = NDArray[np.float64]
+
 
 # ADF test
-def augmented_dickey_fuller(sample, name: str, alpha=0.05):
+def augmented_dickey_fuller(sample: pd.Series, name: str, alpha: float = 0.05) -> None:
     # Convert list to pandas Series if necessary
     if isinstance(sample, list):
         sample = pd.Series(sample)
@@ -39,8 +42,8 @@ def augmented_dickey_fuller(sample, name: str, alpha=0.05):
 def bootstrap(
     estimator: Callable[[Any], Tuple[float, Any]],
     reps: int,
-    seed: int = None,
-) -> np.array:
+    seed: Optional[int] = None,
+) -> Series:
     """
     Bootstrap estimates using a provided estimator on Geometric Brownian Motion samples.
 
@@ -70,7 +73,7 @@ def bootstrap(
 # Helper functions
 
 
-def _get_sums_of_chunks(series: np.array, lag_size: int) -> np.array:
+def _get_sums_of_chunks(series: Series, lag_size: int) -> Series:
     """
     Reshapes a series into chunks of size N and sums each chunk.
 
@@ -90,7 +93,7 @@ def _get_sums_of_chunks(series: np.array, lag_size: int) -> np.array:
     return np.sum(reshaped_series, axis=1)
 
 
-def std_of_sums(ts: np.array, lag_size: int) -> Union[ndarray, Any]:
+def std_of_sums(ts: Series, lag_size: int) -> Union[ndarray, Any]:
     """
     Computes the standard deviation of sums of time series lags of size lag_size.
 
@@ -115,7 +118,7 @@ def std_of_sums(ts: np.array, lag_size: int) -> Union[ndarray, Any]:
     return np.std(sums)
 
 
-def _calculate_diffs(ts: np.array, lag: int) -> np.ndarray:
+def _calculate_diffs(ts: Series, lag: int) -> Series:
     """
     Calculate detrended differences at specified lag steps in the time series.
 
@@ -136,7 +139,7 @@ def _calculate_diffs(ts: np.array, lag: int) -> np.ndarray:
     return ts[:-lag] - ts[lag:]
 
 
-def structure_function(ts: np.array, moment: int, lag: int) -> Union[ndarray, Any]:
+def structure_function(ts: Series, moment: int, lag: int) -> Union[ndarray, Any]:
     """
     Calculate the structure function for a given moment and lag,
     defined as the mean of the absolute differences to the power

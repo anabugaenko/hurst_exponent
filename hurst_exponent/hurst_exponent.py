@@ -1,14 +1,15 @@
 import warnings
 import numpy as np
+from numpy.typing import NDArray
 import pandas as pd
-from typing import Tuple
+from typing import Optional, Tuple
 from powerlaw_function import Fit
 
 
-from hurst_exponent.util.utils import std_of_sums, structure_function
+from hurst_exponent.util.utils import Series, std_of_sums, structure_function
 
 
-def _preprocess_series(series: np.array) -> np.array:
+def _preprocess_series(series: Series) -> Series:
     """Preprocesses the given series: handles non-array input, zeroes, NaNs, Infs, and removes mean."""
     if not isinstance(series, (np.ndarray)):
         series = np.array(series, dtype=float)
@@ -26,7 +27,7 @@ def _preprocess_series(series: np.array) -> np.array:
     return series
 
 
-def _check_fitting_method_validity(fitting_method: str):
+def _check_fitting_method_validity(fitting_method: str) -> None:
     """Validates if the given fitting_method is supported."""
     valid_methods = ["MLE", "Least_squares"]
     if fitting_method not in valid_methods:
@@ -41,8 +42,8 @@ def _fit_data(fitting_method: str, xy_values: pd.DataFrame) -> Fit:
 
 
 def standard_hurst(
-    series: np.array, fitting_method: str = "MLE", min_lag: int = 1, max_lag: int = 100
-) -> Tuple[float, Fit]:
+    series: Series, fitting_method: str = "MLE", min_lag: int = 1, max_lag: int = 100
+) -> Tuple[float, Optional[Fit]]:
     """
     Compute the Hurst exponent using standard the standard deviation of sums:
 
@@ -81,7 +82,7 @@ def standard_hurst(
     )
 
     if not valid_lags or not y_values:
-        return np.nan, np.nan, [[], []]
+        return np.nan, None
 
     # Fit and return Hurst
     xy_df = pd.DataFrame({"x_values": valid_lags, "y_values": y_values})
@@ -94,12 +95,12 @@ def standard_hurst(
 
 
 def generalized_hurst(
-    series: np.array,
+    series: Series,
     moment: int = 1,
     fitting_method: str = "MLE",
     min_lag: int = 1,
     max_lag: int = 100,
-) -> Tuple[float, Fit]:
+) -> Tuple[float, Optional[Fit]]:
     """
     Calculates the generalized Hurst exponent using structure function method:
 
@@ -138,7 +139,7 @@ def generalized_hurst(
     valid_lags = [lag for lag in lag_sizes if np.isfinite(structure_function(series, moment, lag))]
 
     if not valid_lags or not S_q_tau_values:
-        return np.nan, np.nan, [[], []]
+        return np.nan, None
 
     # Fit and return Hurst
     xy_df = pd.DataFrame({"x_values": valid_lags, "y_values": S_q_tau_values})
