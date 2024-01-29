@@ -12,7 +12,7 @@ from powerlaw_function import Fit
 from typing_extensions import List
 
 
-from hurst_exponent.hurst_exponent import standard_hurst, generalized_hurst
+from hurst_exponent import standard_hurst, generalized_hurst
 
 
 Estimator = Callable[[NDArray[np.float64]], Fit]
