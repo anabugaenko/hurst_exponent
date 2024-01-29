@@ -44,7 +44,7 @@ def standard_hurst(
     series: np.array, fitting_method: str = "MLE", min_lag: int = 1, max_lag: int = 100
 ) -> Tuple[float, Fit]:
     """
-    Compute the Hurst exponent using standard the standard deviation of sums:
+    Compute the Hurst exponent using the standard deviation of sums:
 
         Patzelt, Felix, and Jean-Philippe Bouchaud. "Universal scaling and
         nonlinearity of aggregate price impact in financial markets."
@@ -81,7 +81,7 @@ def standard_hurst(
     )
 
     if not valid_lags or not y_values:
-        return np.nan, np.nan, [[], []]
+        raise ValueError("No valid lags")
 
     # Fit and return Hurst
     xy_df = pd.DataFrame({"x_values": valid_lags, "y_values": y_values})
@@ -138,7 +138,7 @@ def generalized_hurst(
     valid_lags = [lag for lag in lag_sizes if np.isfinite(structure_function(series, moment, lag))]
 
     if not valid_lags or not S_q_tau_values:
-        return np.nan, np.nan, [[], []]
+        raise ValueError("No valid lags")
 
     # Fit and return Hurst
     xy_df = pd.DataFrame({"x_values": valid_lags, "y_values": S_q_tau_values})
