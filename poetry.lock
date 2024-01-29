@@ -946,6 +946,21 @@ dev = ["pre-commit", "tox"]
 testing = ["pytest", "pytest-benchmark"]
 
 [[package]]
+name = "powerlaw-function"
+version = "1.0.0"
+description = "Model and fit powerlaw functions"
+optional = false
+python-versions = "*"
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "https://github.com/anabugaenko/powerlaw-function"
+reference = "HEAD"
+resolved_reference = "c0687d2363612226b3da16002320e6321319851b"
+
+[[package]]
 name = "pre-commit"
 version = "3.6.0"
 description = "A framework for managing and maintaining multi-language pre-commit hooks."
@@ -1480,4 +1495,4 @@ testing = ["big-O", "jaraco.functools", "jaraco.itertools", "more-itertools", "p
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.9"
-content-hash = "5c29a3e04b074b8773a9918849e382fdde3e271b09b394d226bd8ae435f61b9b"
+content-hash = "6183dbaab12bce69048e88cb7928a1563780e0e4b306ae23f25ce9b2fb394494"
