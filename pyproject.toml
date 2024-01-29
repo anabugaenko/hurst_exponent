@@ -1,14 +1,21 @@
 [build-system]
-requires = ["poetry-core>=1.0.0"]
+requires = ["poetry-core>=1.0.0", "poetry-dynamic-versioning>=1.0.0,<2.0.0"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.poetry-dynamic-versioning]
+enable = true
 
 # Add other black configurations if needed.
 [tool.black]
 line-length = 120
 
+[project]
+name = "hurst-exponent"
+dynamic = ["version"]
+
 [tool.poetry]
 name = "hurst-exponent"
-version = "0.1.1"
+version = "0.0.0"
 description = "Hurst exponent estimator"
 authors = ["Anastasia Bugeenko <anabugaenko@gmail.com>"]
 license = "MIT"

@@ -1,5 +1,9 @@
 # Hurst Estimator
 
+[![GitHub Workflow Status](https://github.com/anabugaenko/hurst_exponent/actions/workflows/python-package.yml/badge.svg)](https://github.com/anabugaenko/hurst_exponent/actions/workflows/python-package.yml)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/anabugaenko/hurst_exponent)
+![GitHub](https://img.shields.io/github/license/anabugaenko/hurst_exponent?color=blue)
+
 Estimate the Hurst exponent of a random variable using the standard deviation of sums and a generalized method through the structure-function. 
 
 ## Features:
