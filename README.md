@@ -84,17 +84,16 @@ Our Hurst Estimators Test Suite ensures the robustness and accuracy of the  stan
 
 Tests various hyperparameter combinations for both the generalized and standard Hurst estimators.
 
-  ##### Estimators;
+##### Estimators;
   
-    - Simulation: Uses Geometric Brownian Motion (GBM) to simulate data for testing, representing a standard model for stock price movements with a known Hurst of 0.5.
+- Simulation: Uses Geometric Brownian Motion (GBM) to simulate data for testing, representing a standard model for stock price movements with a known Hurst of 0.5.
+- Bootstrapping: Repeated sampling is employed to create a distribution of Hurst estimates for statistical validation.
 
-    - Bootstrapping: Repeated sampling is employed to create a distribution of Hurst estimates for statistical validation.
+##### Core Tests;
 
-  ##### Core Tests;
-
-    - Unbiasedness: Checks if the estimator accurately identifies a random walk in GBM data.
-    - Validity: Ensures estimates fall within the [0, 1] range.
-    - Confidence Intervals: Validates that the 95% CI aligns with bounds cited in major literature.
+- Unbiasedness: Checks if the estimator accurately identifies a random walk in GBM data.
+- Validity: Ensures estimates fall within the [0, 1] range.
+- Confidence Intervals: Validates that the 95% CI aligns with bounds cited in major literature.
   
 To delve into the specifics, review the test suite source code.
 
