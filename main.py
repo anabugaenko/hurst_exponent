@@ -34,8 +34,8 @@ if __name__ == "__main__":
     # Bootstrap
     results = bootstrap(generalized_hurst, reps=1000, seed=50)
 
-    lower_ci = np.percentile(results, 5)
-    upper_ci = np.percentile(results, 95)
+    lower_ci = np.percentile(results, 2.5)
+    upper_ci = np.percentile(results, 97.5)
 
     print(pd.DataFrame(results, columns=["H"]).describe())
     print()
